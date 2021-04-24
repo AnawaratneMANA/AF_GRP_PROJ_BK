@@ -1,14 +1,14 @@
-package Controller;
-
-import Repository.Userrepository;
-import Model.Users;
+package com.testing.demo.Controller;
+import com.testing.demo.Repository.Userrepository;
+import com.testing.demo.Model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class UserController {
     @Autowired
     private Userrepository uRepo;
