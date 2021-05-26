@@ -114,6 +114,12 @@ class UserServiceTest {
         newTestingUser2.setPassword("SDK1");
         newTestingUser2.setType("User");
 
+        mongoTemplate.insert(newTestingUser1);
+        mongoTemplate.insert(newTestingUser2);
+
+        Users user = mongoTemplate.findOne(new Query(where("id").is("user124")), Users.class);
+        assertEquals(newTestingUser2.getFirstName(), user.getFirstName());
+
     }
 
     @Test
@@ -136,10 +142,20 @@ class UserServiceTest {
         newTestingUser.setPassword("SDK");
         newTestingUser.setType("admin");
         mongoTemplate.insert(newTestingUser);
+
+        Users newTestingUser2 = new Users();
+        newTestingUser2.setId("user124");
+        newTestingUser2.setFirstName("Bimal");
+        newTestingUser2.setLastName("Chandrasena");
+        newTestingUser2.setUserName("ChanBimal");
+        newTestingUser2.setPassword("SDK1");
+        newTestingUser2.setType("User");
+        mongoTemplate.insert(newTestingUser2);
+
         List<Users> users = mongoTemplate.findAll(Users.class);
         //Checking
         assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
-        mongoTemplate.remove("user123");
-        //assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
+        mongoTemplate.remove(new Query(where("id").is("user124")), Users.class); //Fix this.
+        //Check the existence of the user.
     }
 }
