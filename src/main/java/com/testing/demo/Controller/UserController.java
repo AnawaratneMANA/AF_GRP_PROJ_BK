@@ -77,7 +77,7 @@ public class UserController {
         if(userOptional.isPresent()){
             return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
         }else{
-            return new ResponseEntity<>("Item not found with id " + id , HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User not found with id " + id , HttpStatus.NOT_FOUND);
         }
     }
 
@@ -97,4 +97,17 @@ public class UserController {
         }
         return new ResponseEntity<>("Update Unsuccessful", HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("/authorization")
+    public ResponseEntity<?> authorizeUser(){
+        return new ResponseEntity<>("Method need to be fixed", HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
+    }
+
+
 }

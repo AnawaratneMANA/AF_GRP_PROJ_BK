@@ -1,5 +1,6 @@
 package com.testing.demo.Service;
 
+import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.testing.demo.Model.Request.Users;
@@ -8,40 +9,52 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class UserServiceTest {
 
-    private static final String CONNECTION_STRING = "mongodb://%s:%d";
-    private Users users;
-    private UserService userService;
+    private static final String CONNECTION = "mongodb://%s:%d";
 
-    //Preparing the testing environment.
-    ServerAddress serverAddress = new ServerAddress("127.0.0.1", 27017);
-//    MongoClient mongoClient = new MongoClient(serverAddress);
-//    MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, "db");
-
-    @BeforeEach
-    void setUp() {
-
-   }
+    private MongodExecutable mongodExecutable;
+    private MongoTemplate mongoTemplate;
 
     @AfterEach
     void tearDown() {
+        mongodExecutable.stop();
+    }
 
+    @BeforeEach
+    void setup() throws Exception{
+
+        String ip = "localhost";
+        int port = 27017;
+
+
+        IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
+                .net(new Net(ip, port, Network.localhostIsIPv6()))
+                .build();
+
+        MongodStarter starter = MongodStarter.getDefaultInstance();
+        mongodExecutable = starter.prepare(mongodConfig);
+        mongodExecutable.start();
+        mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION, ip, port)), "test");
     }
 
     @Test
+    @DisplayName("Adding items and fetching items")
     void createUser() {
     }
 
     @Test
     void getAllUsers() {
-        List<String> users = List.of("firstName","lastName","userName", "pwd", "type");
-        Assertions.assertEquals("firstName", users.get(0));
-        Assertions.assertEquals("lastName", users.get(1));
-        Assertions.assertEquals("userName", users.get(2));
-        Assertions.assertEquals("pwd", users.get(3));
-        Assertions.assertEquals("type", users.get(4));
+        //Create empty user
+        for(int i=0; i<3; i++){
+            Users newTestingUser = new Users();
+            mongoTemplate.insert(newTestingUser);
+        }
+
+        //Fetching All users and Count
+        List<Users> users = mongoTemplate.findAll(Users.class);
+        assertEquals(3, users.size());
+        assertNotNull(users.size());
     }
 
     @Test
@@ -50,7 +63,8 @@ class UserServiceTest {
     }
 
     @Test
-    void generateToken() {
+    @DisplayName("Generate token and validate users")
+    void generateTokenAndValidateUser() {
 
     }
 
