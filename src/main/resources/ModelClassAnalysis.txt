@@ -1,0 +1,9 @@
+//Request Classes.
+User
+    Registered User 
+    Unregistered User
+    
+Event 
+Res
+Researcher
+Reviewer
