@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
     Userrepository userrepository;
+    UserService userService;
     @Autowired
     MongoTemplate mongoTemplate;
 

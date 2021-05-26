@@ -12,4 +12,5 @@ public interface UserService {
     Users getUserById(String id);
     String generateToken(Users user);
     String validateUser(Users user);
+    //users
 }
