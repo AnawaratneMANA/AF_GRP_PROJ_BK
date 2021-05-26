@@ -2,7 +2,6 @@ package com.testing.demo.Controller;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Model.Request.ValidateUser;
 import com.testing.demo.Service.UserService;
-import com.testing.demo.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("api/v1")
