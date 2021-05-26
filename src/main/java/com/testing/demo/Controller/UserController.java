@@ -1,6 +1,6 @@
 package com.testing.demo.Controller;
 import com.testing.demo.Repository.Userrepository;
-import com.testing.demo.Model.Users;
+import com.testing.demo.Model.Request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
