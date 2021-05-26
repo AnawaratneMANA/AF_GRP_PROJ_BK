@@ -1,27 +1,36 @@
 package com.testing.demo.Controller;
-import com.testing.demo.Repository.Userrepository;
-import com.testing.demo.Model.Request.*;
+import com.testing.demo.Model.Request.Users;
+import com.testing.demo.Service.UserService;
+import com.testing.demo.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@RequestMapping("api/v1")
 public class UserController {
     @Autowired
-    private Userrepository uRepo;
+    UserService userService;
 
     @PostMapping("/user")
     public ResponseEntity<?> createUser (@RequestBody Users user){
-        try{
-            uRepo.save(user);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } catch(Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+       Users addedUser = userService.createUser(user);
+       return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers(){
+        List<Users> users = userService.getAllUsers();
+        if(users.size() > 0){
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No Users", HttpStatus.NOT_FOUND);
         }
     }
+
+    //VALIDATION METHOD.
 }
