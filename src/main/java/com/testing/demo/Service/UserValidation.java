@@ -13,4 +13,6 @@ public class UserValidation implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         return new User("Akash", "sdk", new ArrayList<>());
     }
+
+    //ADD A METHOD TO GET THE USERNAME PASSWORD FROM DB.
 }

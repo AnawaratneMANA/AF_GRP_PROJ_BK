@@ -1,13 +1,20 @@
 package com.testing.demo.Controller;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Model.Request.ValidateUser;
+import com.testing.demo.Model.Response.jwtTockenResponse;
 import com.testing.demo.Service.UserService;
+import com.testing.demo.Service.UserValidation;
+import com.testing.demo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
@@ -22,6 +29,12 @@ public class UserController {
     public UserController(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
     }
+
+    @Autowired
+    private UserValidation userDetailsService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping("/user")
     public ResponseEntity<?> createUser (@RequestBody Users user){
@@ -41,8 +54,19 @@ public class UserController {
 
     //VALIDATION METHOD.
     @PostMapping("/validate")
-    public ResponseEntity<?> userValidation(@RequestBody ValidateUser validateUser){
-        return new ResponseEntity<>("", HttpStatus.OK);
+    public ResponseEntity<?> createToken(@RequestBody ValidateUser validateUser) throws Exception{
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            validateUser.getUserName(),
+                            validateUser.getPassword(), new ArrayList<>())
+            );
+        } catch(BadCredentialsException e) {
+            throw new Exception ("Password Not Correct", e);
+        }
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(validateUser.getUserName());
+        final String jwt = jwtUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new jwtTockenResponse(jwt));
     }
 
 
@@ -73,6 +97,4 @@ public class UserController {
         }
         return new ResponseEntity<>("Update Unsuccessful", HttpStatus.NOT_FOUND);
     }
-
-
 }
