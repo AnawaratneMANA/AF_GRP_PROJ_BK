@@ -57,7 +57,11 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
-    //IMPLEMENT CRUD METHODS HERE.
-
+    //IMPLEMENT CRUD METHODS HERe
+    @Override
+    public String deleteUser(String id){
+        mongoTemplate.remove(new Query(where("id").is(id)), Users.class); //Fix this.
+        return "User id is " + id;
+    }
 
 }
