@@ -15,6 +15,7 @@ class UserServiceTest {
 
     private MongodExecutable mongodExecutable;
     private MongoTemplate mongoTemplate;
+    private UserService userService;
 
     @AfterEach
     void tearDown() {
@@ -59,6 +60,22 @@ class UserServiceTest {
 
     @Test
     void getUserById() {
+
+        Users newTestingUser1 = new Users();
+        newTestingUser1.setId("user123");
+        newTestingUser1.setFirstName("Kamal");
+        newTestingUser1.setLastName("Ekanayaka");
+        newTestingUser1.setUserName("KamalaEka");
+        newTestingUser1.setPassword("SDK");
+        newTestingUser1.setType("admin");
+
+        Users newTestingUser2 = new Users();
+        newTestingUser2.setId("user124");
+        newTestingUser2.setFirstName("Bimal");
+        newTestingUser2.setLastName("Chandrasena");
+        newTestingUser2.setUserName("ChanBimal");
+        newTestingUser2.setPassword("SDK1");
+        newTestingUser2.setType("User");
 
     }
 
