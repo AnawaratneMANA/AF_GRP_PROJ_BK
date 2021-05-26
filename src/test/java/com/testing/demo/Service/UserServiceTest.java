@@ -26,7 +26,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
 class UserServiceTest {
 
     private static final String CONNECTION = "mongodb://%s:%d";
@@ -76,6 +81,7 @@ class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Check getAllUsers method and Calculate the total users")
     void getAllUsers() {
         //Create empty user
         for(int i=0; i<3; i++){
