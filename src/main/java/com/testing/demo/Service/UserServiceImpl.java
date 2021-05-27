@@ -4,9 +4,12 @@ import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Repository.Userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 /**
  *
@@ -40,7 +43,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Users getUserById(String id) {
-        return null;
+        Users user = mongoTemplate.findOne(new Query(where("id").is(id)), Users.class);
+        return user;
     }
 
     @Override
@@ -53,7 +57,11 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
-    //IMPLEMENT CRUD METHODS HERE.
-
+    //IMPLEMENT CRUD METHODS HERe
+    @Override
+    public String deleteUser(String id){
+        mongoTemplate.remove(new Query(where("id").is(id)), Users.class); //Fix this.
+        return "User id is " + id;
+    }
 
 }

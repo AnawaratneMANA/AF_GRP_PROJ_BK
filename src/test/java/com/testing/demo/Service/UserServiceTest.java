@@ -1,61 +1,145 @@
 package com.testing.demo.Service;
 
+import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
 import com.testing.demo.Model.Request.Users;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.testing.demo.Model.Response.jwtTockenResponse;
+import com.testing.demo.util.JwtUtil;
+import de.flapdoodle.embed.mongo.MongodExecutable;
+import de.flapdoodle.embed.mongo.MongodStarter;
+import de.flapdoodle.embed.mongo.config.IMongodConfig;
+import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.runtime.Network;
+import org.junit.jupiter.api.*;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 class UserServiceTest {
 
-    private static final String CONNECTION_STRING = "mongodb://%s:%d";
-    private Users users;
+    private static final String CONNECTION = "mongodb://%s:%d";
+
+    private MongodExecutable mongodExecutable;
+    private MongoTemplate mongoTemplate;
     private UserService userService;
-
-    //Preparing the testing environment.
-    ServerAddress serverAddress = new ServerAddress("127.0.0.1", 27017);
-//    MongoClient mongoClient = new MongoClient(serverAddress);
-//    MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, "db");
-
-    @BeforeEach
-    void setUp() {
-
-   }
 
     @AfterEach
     void tearDown() {
+        mongodExecutable.stop();
+    }
 
+    @BeforeEach
+    void setup() throws Exception{
+
+        String ip = "localhost";
+        int port = 27017;
+
+
+        IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION)
+                .net(new Net(ip, port, Network.localhostIsIPv6()))
+                .build();
+
+        MongodStarter starter = MongodStarter.getDefaultInstance();
+        mongodExecutable = starter.prepare(mongodConfig);
+        mongodExecutable.start();
+        mongoTemplate = new MongoTemplate(MongoClients.create(String.format(CONNECTION, ip, port)), "test");
     }
 
     @Test
+    @DisplayName("Adding items and fetching items")
     void createUser() {
+        //Inserting Data.
+        Users newTestingUser = new Users();
+        newTestingUser.setId("1");
+        newTestingUser.setFirstName("Kamal");
+        newTestingUser.setLastName("Ekanayaka");
+        newTestingUser.setUserName("KamalaEka");
+        newTestingUser.setPassword("SDK");
+        newTestingUser.setType("admin");
+        mongoTemplate.insert(newTestingUser);
+        //Fetching Data
+        List<Users> users = mongoTemplate.findAll(Users.class);
+        //Checking
+        assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
     }
 
     @Test
+    @DisplayName("Check getAllUsers method and Calculate the total users")
     void getAllUsers() {
-        List<String> users = List.of("firstName","lastName","userName", "pwd", "type");
-        Assertions.assertEquals("firstName", users.get(0));
-        Assertions.assertEquals("lastName", users.get(1));
-        Assertions.assertEquals("userName", users.get(2));
-        Assertions.assertEquals("pwd", users.get(3));
-        Assertions.assertEquals("type", users.get(4));
+        //Create empty user
+        for(int i=0; i<3; i++){
+            Users newTestingUser = new Users();
+            mongoTemplate.insert(newTestingUser);
+        }
+
+        //Fetching All users and Count
+        List<Users> users = mongoTemplate.findAll(Users.class);
+        assertEquals(3, users.size());
+        assertNotNull(users.size());
     }
 
     @Test
     void getUserById() {
 
+        Users newTestingUser1 = new Users();
+        newTestingUser1.setId("user123");
+        newTestingUser1.setFirstName("Kamal");
+        newTestingUser1.setLastName("Ekanayaka");
+        newTestingUser1.setUserName("KamalaEka");
+        newTestingUser1.setPassword("SDK");
+        newTestingUser1.setType("admin");
+
+        Users newTestingUser2 = new Users();
+        newTestingUser2.setId("user124");
+        newTestingUser2.setFirstName("Bimal");
+        newTestingUser2.setLastName("Chandrasena");
+        newTestingUser2.setUserName("ChanBimal");
+        newTestingUser2.setPassword("SDK1");
+        newTestingUser2.setType("User");
+
     }
 
     @Test
-    void generateToken() {
+    @DisplayName("Generate token and validate users")
+    void generateTokenAndValidateUser() {
 
     }
 
     @Test
     void validateUser() {
 
+    }
+    @Test
+    void deleteUser(){
+        Users newTestingUser = new Users();
+        newTestingUser.setId("user123");
+        newTestingUser.setFirstName("Kamal");
+        newTestingUser.setLastName("Ekanayaka");
+        newTestingUser.setUserName("KamalaEka");
+        newTestingUser.setPassword("SDK");
+        newTestingUser.setType("admin");
+        mongoTemplate.insert(newTestingUser);
+        List<Users> users = mongoTemplate.findAll(Users.class);
+        //Checking
+        assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
+        mongoTemplate.remove("user123");
+        //assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
     }
 }

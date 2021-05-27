@@ -11,8 +11,10 @@ public class UserValidation implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        //Process filter.
         return new User("Akash", "sdk", new ArrayList<>());
     }
 
     //ADD A METHOD TO GET THE USERNAME PASSWORD FROM DB.
+
 }
