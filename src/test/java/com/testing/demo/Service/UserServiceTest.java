@@ -5,6 +5,7 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Model.Response.jwtTockenResponse;
 import com.testing.demo.util.JwtUtil;
@@ -96,7 +97,6 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Test the method getUserById, get Specific User")
     void getUserById() {
 
         Users newTestingUser1 = new Users();
@@ -115,16 +115,9 @@ class UserServiceTest {
         newTestingUser2.setPassword("SDK1");
         newTestingUser2.setType("User");
 
-        mongoTemplate.insert(newTestingUser1);
-        mongoTemplate.insert(newTestingUser2);
-
-        Users user = mongoTemplate.findOne(new Query(where("id").is("user124")), Users.class);
-        assertEquals(newTestingUser2.getFirstName(), user.getFirstName());
-
     }
 
     @Test
-    @DisplayName("Check the CRUD method Delete userById")
     void deleteUser(){
         Users newTestingUser = new Users();
         newTestingUser.setId("user123");
@@ -134,20 +127,9 @@ class UserServiceTest {
         newTestingUser.setPassword("SDK");
         newTestingUser.setType("admin");
         mongoTemplate.insert(newTestingUser);
-
-        Users newTestingUser2 = new Users();
-        newTestingUser2.setId("user124");
-        newTestingUser2.setFirstName("Bimal");
-        newTestingUser2.setLastName("Chandrasena");
-        newTestingUser2.setUserName("ChanBimal");
-        newTestingUser2.setPassword("SDK1");
-        newTestingUser2.setType("User");
-        mongoTemplate.insert(newTestingUser2);
-
         List<Users> users = mongoTemplate.findAll(Users.class);
-        //Checking
-        assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
-        mongoTemplate.remove(new Query(where("id").is("user124")), Users.class); //Fix this.
-        //Check the existence of the user.
+        DeleteResult y = mongoTemplate.remove(new Query(where("id").is("user1")), Users.class);
+        assertEquals(1, y.getDeletedCount());
+
     }
 }
