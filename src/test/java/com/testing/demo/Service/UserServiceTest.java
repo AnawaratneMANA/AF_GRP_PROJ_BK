@@ -96,6 +96,7 @@ class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Test the method getUserById, get Specific User")
     void getUserById() {
 
         Users newTestingUser1 = new Users();
@@ -123,16 +124,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Generate token and validate users")
-    void generateTokenAndValidateUser() {
-
-    }
-
-    @Test
-    void validateUser() {
-
-    }
-    @Test
+    @DisplayName("Check the CRUD method Delete userById")
     void deleteUser(){
         Users newTestingUser = new Users();
         newTestingUser.setId("user123");
