@@ -5,6 +5,7 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Model.Response.jwtTockenResponse;
 import com.testing.demo.util.JwtUtil;
@@ -126,10 +127,11 @@ class UserServiceTest {
     void validateUser() {
 
     }
+    //Delete user
     @Test
     void deleteUser(){
         Users newTestingUser = new Users();
-        newTestingUser.setId("user123");
+        newTestingUser.setId("user1");
         newTestingUser.setFirstName("Kamal");
         newTestingUser.setLastName("Ekanayaka");
         newTestingUser.setUserName("KamalaEka");
@@ -137,9 +139,8 @@ class UserServiceTest {
         newTestingUser.setType("admin");
         mongoTemplate.insert(newTestingUser);
         List<Users> users = mongoTemplate.findAll(Users.class);
-        //Checking
-        assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
-        mongoTemplate.remove("user123");
-        //assertEquals(newTestingUser.getFirstName(), users.get(0).getFirstName());
+        DeleteResult y = mongoTemplate.remove(new Query(where("id").is("user1")), Users.class);
+        assertEquals(1, y.getDeletedCount());
+
     }
 }
