@@ -64,7 +64,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("Adding items and fetching items")
+    @DisplayName("Creating Users testing Method")
     void createUser() {
         //Inserting Data.
         Users newTestingUser = new Users();
@@ -97,6 +97,7 @@ class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Get User By Id Method testing method.")
     void getUserById() {
 
         Users newTestingUser1 = new Users();
@@ -106,6 +107,7 @@ class UserServiceTest {
         newTestingUser1.setUserName("KamalaEka");
         newTestingUser1.setPassword("SDK");
         newTestingUser1.setType("admin");
+        mongoTemplate.insert(newTestingUser1);
 
         Users newTestingUser2 = new Users();
         newTestingUser2.setId("user124");
@@ -114,10 +116,14 @@ class UserServiceTest {
         newTestingUser2.setUserName("ChanBimal");
         newTestingUser2.setPassword("SDK1");
         newTestingUser2.setType("User");
+        mongoTemplate.insert(newTestingUser2);
 
+        Users user = mongoTemplate.findOne(new Query(where("id").is("user124")), Users.class);
+        assertEquals(user.getFirstName(), newTestingUser2.getFirstName());
     }
 
     @Test
+    @DisplayName("Delete method testing")
     void deleteUser(){
         Users newTestingUser = new Users();
         newTestingUser.setId("user123");
@@ -128,8 +134,31 @@ class UserServiceTest {
         newTestingUser.setType("admin");
         mongoTemplate.insert(newTestingUser);
         List<Users> users = mongoTemplate.findAll(Users.class);
-        DeleteResult y = mongoTemplate.remove(new Query(where("id").is("user1")), Users.class);
+        DeleteResult y = mongoTemplate.remove(new Query(where("id").is("user123")), Users.class);
         assertEquals(1, y.getDeletedCount());
 
+    }
+
+    @Test
+    @DisplayName("Get user by name method testing")
+    void getUserByName(){
+
+        Users newTestingUser1 = new Users();
+        newTestingUser1.setId("user123");
+        newTestingUser1.setFirstName("Kamal");
+        newTestingUser1.setLastName("Ekanayaka");
+        newTestingUser1.setUserName("Salitha");
+        newTestingUser1.setPassword("SDK");
+        newTestingUser1.setType("admin");
+        mongoTemplate.insert(newTestingUser1);
+        Users user = null;
+        try{
+            user = mongoTemplate.findOne(new Query(where("userName").is("Salitha")), Users.class);
+        } catch (NullPointerException e){
+            System.out.println("User Name is Null");
+        }
+
+        System.out.println(user);
+        assertEquals(user.getFirstName(), newTestingUser1.getFirstName());
     }
 }

@@ -28,8 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserValidation validateUser;
 
-    //ADD JWT LATER.
-
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService((validateUser));

@@ -67,6 +67,7 @@ public class UserController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(validateUser.getUserName());
         final String jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new jwtTockenResponse(jwt));
+
     }
 
 
@@ -108,6 +109,4 @@ public class UserController {
         String response = userService.deleteUser(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
 }
