@@ -3,6 +3,7 @@ package com.testing.demo.Controller;
 import com.testing.demo.Model.Request.Events;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Service.EventService.EventService;
+import com.testing.demo.Service.TotalUserCount.TotalUserCountService;
 import com.testing.demo.Service.UserValidation;
 import com.testing.demo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class EventController {
 
     @Autowired
     EventService eventService;
+
 
     @Autowired
     private JwtUtil jwtUtil;
