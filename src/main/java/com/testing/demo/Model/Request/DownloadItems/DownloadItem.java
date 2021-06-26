@@ -10,6 +10,7 @@ public class DownloadItem {
     private String path;
     private String publisherName;
     private String fileType;
+    private String ApprovalStatus;
 
     public String getId() {
         return id;
@@ -49,5 +50,13 @@ public class DownloadItem {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public String getApprovalStatus() {
+        return ApprovalStatus;
+    }
+
+    public void setApprovalStatus(String approvalStatus) {
+        ApprovalStatus = approvalStatus;
     }
 }
