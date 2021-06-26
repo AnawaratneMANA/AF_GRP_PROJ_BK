@@ -1,15 +1,14 @@
 package com.testing.demo.Service;
-
 import com.testing.demo.Model.Request.DownloadCategory;
-import com.testing.demo.Model.Request.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 @Service
-public class DownloadServiceImpl implements DownloadService{
+public class DownloadServiceImpl implements DownloadService {
     @Autowired
     MongoTemplate mongoTemplate;
 
@@ -30,4 +29,10 @@ public class DownloadServiceImpl implements DownloadService{
         mongoTemplate.remove(new Query(where("type").is(type)), DownloadCategory.class);
         return "User id is " + type;
     }
+
+    @Override
+    public List<DownloadCategory> getAllDownloadCategories() {
+        return mongoTemplate.findAll(DownloadCategory.class);
+    }
+
 }

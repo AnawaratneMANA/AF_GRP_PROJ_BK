@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("api/v1")
@@ -30,4 +32,15 @@ public class DownloadController {
         String response = downloadService.deleteDownloadCategory(type);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getAllUsers(){
+        List<DownloadCategory> downloadCategories = downloadService.getAllDownloadCategories();
+        if(downloadCategories.size() > 0){
+            return new ResponseEntity<>(downloadCategories, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No Categories", HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
