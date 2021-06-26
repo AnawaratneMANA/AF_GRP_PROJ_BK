@@ -44,7 +44,18 @@ public class UserServiceImpl implements UserService{
     @Override
     public Users getUserById(String id) {
         Users user = mongoTemplate.findOne(new Query(where("id").is(id)), Users.class);
+        System.out.println(user);
         return user;
+    }
+
+    @Override
+    public String generateToken(Users user) {
+        return null;
+    }
+
+    @Override
+    public String validateUser(Users user) {
+        return null;
     }
 
     @Override
@@ -60,8 +71,21 @@ public class UserServiceImpl implements UserService{
     //IMPLEMENT CRUD METHODS HERe
     @Override
     public String deleteUser(String id){
-        mongoTemplate.remove(new Query(where("id").is(id)), Users.class); //Fix this.
+        mongoTemplate.remove(new Query(where("id").is(id)), Users.class);
         return "User id is " + id;
     }
+
+    //Authentication Method not exposed to controllers. (Do not expose to controllers).
+    @Override
+    public Users getUserByName(String name) {
+        Users user = null;
+        try{
+            user = mongoTemplate.findOne(new Query(where("userName").is(name)), Users.class);
+        } catch (NullPointerException e){
+            System.out.println("User is null");
+        }
+        return user;
+    }
+
 
 }
