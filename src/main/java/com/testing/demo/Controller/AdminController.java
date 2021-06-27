@@ -1,20 +1,19 @@
 package com.testing.demo.Controller;
 
-import com.testing.demo.Model.Request.DownloadCategory;
 import com.testing.demo.Model.Request.DownloadItems.DownloadItem;
+import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Model.Response.ApproveStatus;
 import com.testing.demo.Model.Response.TotalUserCount;
 import com.testing.demo.Service.ApproveStatus.ApproveStatusService;
 import com.testing.demo.Service.TotalUserCount.TotalUserCountService;
+import com.testing.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -22,6 +21,8 @@ import java.util.List;
 public class AdminController {
     @Autowired
     ApproveStatusService approveStatusService;
+    @Autowired
+    UserService userService;
 
     @Autowired
     TotalUserCountService totalUserCountService;
@@ -55,4 +56,5 @@ public class AdminController {
             return new ResponseEntity<>("No Categories", HttpStatus.NOT_FOUND);
         }
     }
+
 }
