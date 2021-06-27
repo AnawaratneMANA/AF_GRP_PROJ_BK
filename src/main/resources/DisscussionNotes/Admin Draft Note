@@ -1,0 +1,23 @@
+//Models
+1. Total User Count. (Response)
+2. Approval Status Model Class. (Response)
+        Approve Count
+        Rejected Count
+        Total Count
+
+
+//Controllers
+1. AdminController ("api/v1")
+    getTotalUserCount() (To-do)
+    getApprovalDetails() (To-do)
+    changeUserPermissions() (pending)
+    removeUsers() (pending)
+    assignAdmins() (pending)
+
+//Service Classes
+1. Total user count
+2. Approved/Denied Resource Count.
+3. Assign Admins (Post)
+4. Remove Users
+5. Update Users (Change User types, Change User details, Permissions...)
+6.

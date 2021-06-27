@@ -58,15 +58,15 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
-    @Override
-    public String generateToken(Users user) {
-        return null;
-    }
-
-    @Override
-    public String validateUser(Users user) {
-        return null;
-    }
+//    @Override
+//    public String generateToken(Users user) {
+//        return null;
+//    }
+//
+//    @Override
+//    public String validateUser(Users user) {
+//        return null;
+//    }
 
     //IMPLEMENT CRUD METHODS HERe
     @Override
