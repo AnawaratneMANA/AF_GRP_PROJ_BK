@@ -14,7 +14,7 @@ public class DownloadCategory {
 
     /**
      * Type of the download category will have the link to the, files.
-     * Types of files will be research papers, templates,
+     * Types of files will be research papers, templates...
      *
      * **/
 
