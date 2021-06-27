@@ -1,6 +1,5 @@
 package com.testing.demo.Service;
 import com.testing.demo.Model.Request.DownloadCategory;
-import com.testing.demo.Model.Request.Users;
 import java.util.List;
 
 public interface DownloadService {
