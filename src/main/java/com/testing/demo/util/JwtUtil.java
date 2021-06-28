@@ -1,8 +1,10 @@
 package com.testing.demo.util;
 
+import com.testing.demo.Service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtil {
+
+    @Autowired
+    UserService userService;
 
     /**
      * JWT authentication class.
@@ -41,6 +46,8 @@ public class JwtUtil {
 
     public String generateToken(UserDetails employeeDetails){
         Map<String, Object> claims = new HashMap<>();
+        //Set the Claims (User type)
+        claims.put("userType",userService.getUserByName(employeeDetails.getUsername()).getType());
         return createToken(claims, employeeDetails.getUsername());
     }
 
