@@ -28,13 +28,13 @@ public class DownloadController {
     }
 
     @DeleteMapping("/delete/category/{type}")
-    public ResponseEntity<?> deleteUser(@PathVariable String type){
+    public ResponseEntity<?> deleteCategory(@PathVariable String type){
         String response = downloadService.deleteDownloadCategory(type);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<?> getAllUsers(){
+    public ResponseEntity<?> getAllCategories(){
         List<DownloadCategory> downloadCategories = downloadService.getAllDownloadCategories();
         if(downloadCategories.size() > 0){
             return new ResponseEntity<>(downloadCategories, HttpStatus.OK);
@@ -42,5 +42,7 @@ public class DownloadController {
             return new ResponseEntity<>("No Categories", HttpStatus.NOT_FOUND);
         }
     }
+
+    //Controllers for Download Resources.
 
 }
