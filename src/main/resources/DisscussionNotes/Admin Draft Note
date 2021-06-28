@@ -9,11 +9,11 @@
 
 //Controllers
 1. AdminController ("api/v1")
-    getTotalUserCount() (To-do)
-    getApprovalDetails() (To-do)
-    changeUserPermissions() (pending)
-    removeUsers() (pending)
-    assignAdmins() (pending)
+    getTotalUserCount() (To-do) (done)
+    getApprovalDetails() (To-do) (done)
+    changeUserPermissions() (pending) (done)
+    removeUsers() (pending) (done)
+    assignAdmins() (pending) (done)
 
 //Service Classes
 1. Total user count
