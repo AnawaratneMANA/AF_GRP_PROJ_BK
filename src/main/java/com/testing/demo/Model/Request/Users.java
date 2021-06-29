@@ -10,6 +10,7 @@ public class Users{
     private String userName;
     private String password;
     private String type;
+    //Add Contact Details of the User.
 
     //DEFAULT
     public Users (){

@@ -2,6 +2,8 @@ package com.testing.demo.Service.EventService;
 
 import com.testing.demo.Model.Request.Events;
 import com.testing.demo.Model.Request.Users;
+import com.testing.demo.Model.Response.BarChartModel;
+import com.testing.demo.Repository.BarChartMongoRepo;
 import com.testing.demo.Repository.Eventrepository;
 import com.testing.demo.Repository.Userrepository;
 import com.testing.demo.Service.UserService;
@@ -10,7 +12,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
@@ -18,15 +23,20 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 public class EventServiceImpl implements EventService{
     @Autowired
     Eventrepository eventrepository;
+
+    @Autowired
     EventService eventService;
+
     @Autowired
     MongoTemplate mongoTemplate;
+
+    @Autowired
+    BarChartMongoRepo barChartMongoRepo;
 
     @Override
     public Events createEvent(Events events) {
         //CREATE USER
         Events newEvent = new Events();
-
         newEvent.setEventName(events.getEventName());
         newEvent.setEventType(events.getEventType());
         newEvent.setDescription(events.getDescription());
@@ -37,7 +47,7 @@ public class EventServiceImpl implements EventService{
         newEvent.setLimitOfPeople(events.getLimitOfPeople());
         newEvent.setMainSpeaker(events.getMainSpeaker());
         newEvent.setDatetime(events.getDatetime());
-
+        newEvent.setImage(events.getImage());
         mongoTemplate.insert(newEvent);
         //mongoTemplate
         return newEvent;
@@ -71,5 +81,15 @@ public class EventServiceImpl implements EventService{
             System.out.println("User is null");
         }
         return events;
+    }
+
+    @Override
+    public List<BarChartModel> getCountByYear(String[] categories) {
+        Map<String, BarChartModel> responses = new HashMap<String, BarChartModel>();
+        List<Events> listOfEvents = barChartMongoRepo.getItemByYear(categories);
+        System.out.println(listOfEvents);
+        return null;
+
+        //Something is wrong. Check.
     }
 }

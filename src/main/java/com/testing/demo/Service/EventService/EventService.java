@@ -2,6 +2,7 @@ package com.testing.demo.Service.EventService;
 
 import com.testing.demo.Model.Request.Events;
 import com.testing.demo.Model.Request.Users;
+import com.testing.demo.Model.Response.BarChartModel;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface EventService {
     Events getEventById(String id);
     String deleteEvent(String id);
     Events getEventByName(String name);
+    List<BarChartModel> getCountByYear(String[] categories);
 }

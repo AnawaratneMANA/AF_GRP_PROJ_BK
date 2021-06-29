@@ -2,6 +2,7 @@ package com.testing.demo.Service;
 
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Repository.Userrepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -86,6 +87,4 @@ public class UserServiceImpl implements UserService{
         }
         return user;
     }
-
-
 }

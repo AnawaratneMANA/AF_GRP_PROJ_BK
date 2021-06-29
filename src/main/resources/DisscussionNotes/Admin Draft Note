@@ -1,3 +1,4 @@
+//Admin Management
 //Models
 1. Total User Count. (Response)
 2. Approval Status Model Class. (Response)
@@ -8,11 +9,11 @@
 
 //Controllers
 1. AdminController ("api/v1")
-    getTotalUserCount() (To-do)
-    getApprovalDetails() (To-do)
-    changeUserPermissions() (pending)
-    removeUsers() (pending)
-    assignAdmins() (pending)
+    getTotalUserCount() (To-do) (done)
+    getApprovalDetails() (To-do) (done)
+    changeUserPermissions() (pending) (done)
+    removeUsers() (pending) (done)
+    assignAdmins() (pending) (done)
 
 //Service Classes
 1. Total user count
@@ -20,4 +21,21 @@
 3. Assign Admins (Post)
 4. Remove Users
 5. Update Users (Change User types, Change User details, Permissions...)
-6.
+
+//Resource Management - Backend
+Model -> Completed All
+Services -> Download Category (Done), File Services should be implemented. (Get, Delete, Post)
+Controllers -> Download Categories (Done), Resource Files Endpoints should be implemented. (Get, Delete, Post).
+
+//Resource Management - UI
+Download Category - Completed (Only View)
+Download Files - Completed (Only View)
+File Attachment Page - (Pending) (Add/Remove)
+
+
+
+
+//User Management
+Add Contact details to the model.
+
+

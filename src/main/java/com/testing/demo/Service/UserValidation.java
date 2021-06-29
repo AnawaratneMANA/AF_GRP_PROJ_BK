@@ -36,7 +36,7 @@ public class UserValidation implements UserDetailsService {
     }
 
     //ADD A METHOD TO GET THE USERNAME PASSWORD FROM DB. (Done)
-    //Import the repository and get the user from the database. (Validation).
-    //Parse User from db to the User define from the security class.
+    //Import the repository and get the user from the database. (Validation). (Done)
+    //Parse User from db to the User define from the security class. (Done)
 
 }
