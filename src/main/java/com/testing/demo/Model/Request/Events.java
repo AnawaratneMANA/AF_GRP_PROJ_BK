@@ -17,6 +17,7 @@ public class Events {
     private String limitOfPeople;
     private String sponsor;
     private String status;
+    private String year;
 
     //DEFAULT
     public Events (){
@@ -24,7 +25,7 @@ public class Events {
     }
 
     //OVERLOADED
-    public Events(String id, String eventName, String eventPlace, Date datetime, String organizerName, String eventType, String mainSpeaker, String description, String limitOfPeople, String sponsor, String status) {
+    public Events(String id, String eventName, String eventPlace, Date datetime, String organizerName, String eventType, String mainSpeaker, String description, String limitOfPeople, String sponsor, String status, String year) {
         this.id = id;
         this.eventName = eventName;
         this.eventPlace = eventPlace;
@@ -36,7 +37,9 @@ public class Events {
         this.limitOfPeople = limitOfPeople;
         this.sponsor = sponsor;
         this.status = status;
+        this.year = year;
     }
+
 
     public String getId() {
         return id;
