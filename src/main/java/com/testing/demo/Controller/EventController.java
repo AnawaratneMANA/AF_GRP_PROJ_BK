@@ -1,5 +1,6 @@
 package com.testing.demo.Controller;
 
+import com.testing.demo.Model.Request.DownloadItems.DownloadItem;
 import com.testing.demo.Model.Request.Events;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Service.EventService.EventService;
@@ -48,6 +49,46 @@ public class EventController {
             return new ResponseEntity<>("No Events", HttpStatus.NOT_FOUND);
         }
     }
+
+    /**
+     * @GetMapping("/approveStatuses")
+     *     public ResponseEntity<?> getApproveStatus(){
+     *         int count1 = 0;
+     *         int count2 = 0;
+     *         List<DownloadItem> downloadItems = approveStatusService.getApproveStatus();
+     *         if(downloadItems.size() >= 0){
+     *             for (DownloadItem i : downloadItems){
+     *                 if (i.getApprovalStatus().contentEquals("approve")){
+     *                     count1++;
+     *                 }else if (i.getApprovalStatus().contentEquals("reject")){
+     *                     count2++;
+     *                 }
+     *             }
+     *             ApproveStatus approveStatus = new ApproveStatus(String.valueOf(count1), String.valueOf(count2), String.valueOf(count1+count2));
+     *             return new ResponseEntity<>(approveStatus, HttpStatus.OK);
+     *         } else {
+     *             return new ResponseEntity<>("No Categories", HttpStatus.NOT_FOUND);
+     *         }
+     *     }
+     * @return
+     */
+//    @GetMapping("/eventcount")
+//    public ResponseEntity<?> getEventsWithDate(){
+//
+//        List<Events> events = eventService.getAllEvents();
+//        if(events.size() > 0){
+//            for (Events i : events){
+//                if (i.getApprovalStatus().contentEquals("approve")){
+//                    count1++;
+//                }else if (i.getApprovalStatus().contentEquals("reject")){
+//                    count2++;
+//                }
+//            }
+//            return new ResponseEntity<>(events, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>("No Events", HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     //Get Single event
     @GetMapping("/getEventById/{id}")
