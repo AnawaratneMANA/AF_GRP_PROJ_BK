@@ -47,6 +47,7 @@ public class EventServiceImpl implements EventService{
         newEvent.setLimitOfPeople(events.getLimitOfPeople());
         newEvent.setMainSpeaker(events.getMainSpeaker());
         newEvent.setDatetime(events.getDatetime());
+        newEvent.setImage(events.getImage());
         mongoTemplate.insert(newEvent);
         //mongoTemplate
         return newEvent;
