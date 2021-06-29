@@ -8,4 +8,5 @@ public class Resources {
     private String ownerId;
     private String status;
     private String reviewerId;
+
 }
