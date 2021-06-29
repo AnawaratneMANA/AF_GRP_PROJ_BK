@@ -128,4 +128,12 @@ public class Events {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
 }
