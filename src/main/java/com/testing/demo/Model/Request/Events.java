@@ -9,7 +9,7 @@ public class Events {
     private String id;
     private String eventName;
     private String eventPlace;
-    private Date datetime;
+    private String datetime;
     private String organizerName;
     private String eventType;
     private String mainSpeaker;
@@ -17,7 +17,6 @@ public class Events {
     private String limitOfPeople;
     private String sponsor;
     private String status;
-    private String year;
 
     //DEFAULT
     public Events (){
@@ -25,7 +24,7 @@ public class Events {
     }
 
     //OVERLOADED
-    public Events(String id, String eventName, String eventPlace, Date datetime, String organizerName, String eventType, String mainSpeaker, String description, String limitOfPeople, String sponsor, String status, String year) {
+    public Events(String id, String eventName, String eventPlace, String datetime, String organizerName, String eventType, String mainSpeaker, String description, String limitOfPeople, String sponsor, String status) {
         this.id = id;
         this.eventName = eventName;
         this.eventPlace = eventPlace;
@@ -37,9 +36,7 @@ public class Events {
         this.limitOfPeople = limitOfPeople;
         this.sponsor = sponsor;
         this.status = status;
-        this.year = year;
     }
-
 
     public String getId() {
         return id;
@@ -65,11 +62,11 @@ public class Events {
         this.eventPlace = eventPlace;
     }
 
-    public Date getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 
@@ -127,13 +124,5 @@ public class Events {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
     }
 }
