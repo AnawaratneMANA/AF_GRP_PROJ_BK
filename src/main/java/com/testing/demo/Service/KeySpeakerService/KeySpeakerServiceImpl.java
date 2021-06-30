@@ -51,6 +51,7 @@ public class KeySpeakerServiceImpl implements KeySpeakerService{
 
     @Override
     public String deleteKeySpeaker(String id) {
-        return null;
+        mongoTemplate.remove(new Query(where("id").is(id)), KeySpeakers.class);
+        return "KeySpeaker id is " + id;
     }
 }
