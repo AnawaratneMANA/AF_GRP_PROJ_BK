@@ -1,12 +1,16 @@
 package com.testing.demo.Service.KeySpeakerService;
 
+import com.testing.demo.Model.Request.Feedback;
 import com.testing.demo.Model.Request.KeySpeakers;
 import com.testing.demo.Repository.BarChartMongoRepo;
 import com.testing.demo.Repository.KeySpeakerRepositary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 public class KeySpeakerServiceImpl implements KeySpeakerService{
     @Autowired
@@ -40,7 +44,9 @@ public class KeySpeakerServiceImpl implements KeySpeakerService{
 
     @Override
     public KeySpeakers getKeySpeakerById(String id) {
-        return null;
+        KeySpeakers keySpeakers = mongoTemplate.findOne(new Query(where("id").is(id)), KeySpeakers.class);
+        System.out.println(keySpeakers);
+        return keySpeakers;
     }
 
     @Override
