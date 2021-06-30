@@ -59,6 +59,12 @@ public class FeedBackServiceImpl implements FeedBackService{
 
     @Override
     public Feedback getFeedbackByName(String name) {
-        return null;
+        Feedback feedback = null;
+        try{
+            feedback = mongoTemplate.findOne(new Query(where("feedBackName").is(name)), Feedback.class);
+        } catch (NullPointerException e){
+            System.out.println("Feedback is null");
+        }
+        return feedback;
     }
 }
