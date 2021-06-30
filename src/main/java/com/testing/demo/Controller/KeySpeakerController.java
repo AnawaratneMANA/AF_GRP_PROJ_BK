@@ -1,6 +1,5 @@
 package com.testing.demo.Controller;
 
-import com.testing.demo.Model.Request.Feedback;
 import com.testing.demo.Model.Request.KeySpeakers;
 import com.testing.demo.Service.KeySpeakerService.KeySpeakerService;
 import com.testing.demo.util.JwtUtil;
@@ -53,6 +52,11 @@ public class KeySpeakerController {
         }
     }
 
+    @DeleteMapping("/deleteKeySpeaker/{id}")
+    public ResponseEntity<?> deleteKeySpeaker(@PathVariable String id){
+        String response = keySpeakerService.deleteKeySpeaker(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 
 
