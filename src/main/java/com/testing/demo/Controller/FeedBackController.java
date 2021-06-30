@@ -1,6 +1,7 @@
 package com.testing.demo.Controller;
 
 import com.testing.demo.Model.Request.Events;
+import com.testing.demo.Model.Request.Feedback;
 import com.testing.demo.Service.EventService.EventService;
 import com.testing.demo.Service.FeedBackService.FeedBackService;
 import com.testing.demo.util.JwtUtil;
@@ -27,11 +28,11 @@ public class FeedBackController {
 
     }
 
-//    @PostMapping("/event")
-//    public ResponseEntity<?> createEvent (@RequestBody Events events){
-//        Events addedEvent = eventService.createEvent(events);
-//        return new ResponseEntity<>(events, HttpStatus.OK);
-//    }
+    @PostMapping("/feedback")
+    public ResponseEntity<?> createFeedback (@RequestBody Feedback feedback){
+        Feedback addedFeedback = feedBackService.createFeedback(feedback);
+        return new ResponseEntity<>(feedback, HttpStatus.OK);
+    }
 
 //    @GetMapping("/events")
 //    public ResponseEntity<?> getAllEvents(){
