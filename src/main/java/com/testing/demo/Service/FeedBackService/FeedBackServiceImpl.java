@@ -16,8 +16,8 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Service
 public class FeedBackServiceImpl implements FeedBackService{
-    @Autowired
-    Eventrepository eventrepository;
+//    @Autowired
+//    Eventrepository eventrepository;
 
     @Autowired
     EventService eventService;
