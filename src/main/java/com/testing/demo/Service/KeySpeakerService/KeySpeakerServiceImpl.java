@@ -1,11 +1,8 @@
 package com.testing.demo.Service.KeySpeakerService;
 
-import com.testing.demo.Model.Request.Feedback;
 import com.testing.demo.Model.Request.KeySpeakers;
 import com.testing.demo.Repository.BarChartMongoRepo;
-import com.testing.demo.Repository.Eventrepository;
 import com.testing.demo.Repository.KeySpeakerRepositary;
-import com.testing.demo.Service.EventService.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -32,14 +29,13 @@ public class KeySpeakerServiceImpl implements KeySpeakerService{
         newKeySpeaker.setQualifications(keySpeakers.getQualifications());
         newKeySpeaker.setImage(keySpeakers.getImage());
 
-
         mongoTemplate.insert(newKeySpeaker);
         return newKeySpeaker;
     }
 
     @Override
-    public List<Feedback> getAllKeySpeaker() {
-        return null;
+    public List<KeySpeakers> getAllKeySpeaker() {
+        return mongoTemplate.findAll(KeySpeakers.class);
     }
 
     @Override
