@@ -34,15 +34,15 @@ public class FeedBackController {
         return new ResponseEntity<>(feedback, HttpStatus.OK);
     }
 
-//    @GetMapping("/events")
-//    public ResponseEntity<?> getAllEvents(){
-//        List<Events> events = eventService.getAllEvents();
-//        if(events.size() > 0){
-//            return new ResponseEntity<>(events, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>("No Events", HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @GetMapping("/feedbacks")
+    public ResponseEntity<?> getAllFeedbacks(){
+        List<Feedback> feedbacks = feedBackService.getAllFeedbacks();
+        if(feedbacks.size() > 0){
+            return new ResponseEntity<>(feedbacks, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No Feedbacks", HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 //    //Get Single event
