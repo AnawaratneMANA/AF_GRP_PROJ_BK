@@ -7,9 +7,12 @@ import com.testing.demo.Repository.Eventrepository;
 import com.testing.demo.Service.EventService.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Service
 public class FeedBackServiceImpl implements FeedBackService{
@@ -43,7 +46,9 @@ public class FeedBackServiceImpl implements FeedBackService{
 
     @Override
     public Feedback getFeedBackById(String id) {
-        return null;
+        Feedback feedback = mongoTemplate.findOne(new Query(where("id").is(id)), Feedback.class);
+        System.out.println(feedback);
+        return feedback;
     }
 
     @Override
