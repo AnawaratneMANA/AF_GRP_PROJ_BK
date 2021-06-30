@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService{
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
         newUser.setUserName(user.getUserName());
+        newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
         newUser.setType(user.getType());
         mongoTemplate.insert(newUser);
@@ -45,7 +46,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public Users getUserById(String id) {
         Users user = mongoTemplate.findOne(new Query(where("id").is(id)), Users.class);
-        System.out.println(user);
         return user;
     }
 
@@ -58,16 +58,6 @@ public class UserServiceImpl implements UserService{
     public String validateUser(Users user) {
         return null;
     }
-
-//    @Override
-//    public String generateToken(Users user) {
-//        return null;
-//    }
-//
-//    @Override
-//    public String validateUser(Users user) {
-//        return null;
-//    }
 
     //IMPLEMENT CRUD METHODS HERe
     @Override
