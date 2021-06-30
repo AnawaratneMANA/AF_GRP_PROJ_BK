@@ -56,32 +56,10 @@ public class FeedBackController {
         }
     }
 
-//    @PutMapping("/updateEvent/{id}")
-//    public ResponseEntity<?> updateEvent(@PathVariable("id") String id, @RequestBody Events events){
-//        Optional<Events> eventUpdate = Optional.ofNullable(eventService.getEventById(id));
-//        if(eventUpdate.isPresent()){
-//            Events updateEvent = eventUpdate.get();
-//            updateEvent.setId(events.getId() != null ? events.getId() : updateEvent.getId());
-//            updateEvent.setEventName(events.getEventName() != null ? events.getEventName() : updateEvent.getEventName());
-//            updateEvent.setEventType(events.getEventType() != null ? events.getEventType() : updateEvent.getEventType());
-//            updateEvent.setEventPlace(events.getEventPlace() != null ? events.getEventPlace() : updateEvent.getEventPlace());
-//            updateEvent.setDescription(events.getDescription() != null ? events.getDescription() : updateEvent.getDescription());
-//            updateEvent.setStatus(events.getStatus() != null ? events.getStatus() : updateEvent.getStatus());
-//            updateEvent.setDatetime(events.getDatetime() != null ? events.getDatetime() : updateEvent.getDatetime());
-//            updateEvent.setMainSpeaker(events.getMainSpeaker() != null ? events.getMainSpeaker() : updateEvent.getMainSpeaker());
-//            updateEvent.setLimitOfPeople(events.getLimitOfPeople() != null ? events.getLimitOfPeople() : updateEvent.getLimitOfPeople());
-//            updateEvent.setOrganizerName(events.getOrganizerName() != null ? events.getOrganizerName() : updateEvent.getOrganizerName());
-//
-//            eventService.createEvent(updateEvent);
-//            return new ResponseEntity<>("Update Successful", HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>("Update Unsuccessful", HttpStatus.NOT_FOUND);
-//    }
-
-//    @DeleteMapping("/deleteEvent/{id}")
-//    public ResponseEntity<?> deleteEvent(@PathVariable String id){
-//        String response = eventService.deleteEvent(id);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @DeleteMapping("/deleteFeedback/{id}")
+    public ResponseEntity<?> deleteFeedback(@PathVariable String id){
+        String response = feedBackService.deleteFeedback(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }
