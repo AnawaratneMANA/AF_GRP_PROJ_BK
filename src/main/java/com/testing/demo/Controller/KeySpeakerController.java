@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -38,6 +39,17 @@ public class KeySpeakerController {
             return new ResponseEntity<>(keySpeakers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("No KeySpeakers", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Get Single Key Speaker
+    @GetMapping("/getKeySpeakerById/{id}")
+    public ResponseEntity<?> getKeySpeakerById(@PathVariable("id") String id){
+        Optional<KeySpeakers> keySpeakersOptional = Optional.ofNullable(keySpeakerService.getKeySpeakerById(id));
+        if(keySpeakersOptional.isPresent()){
+            return new ResponseEntity<>(keySpeakersOptional.get(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Key Speaker not found with id " + id , HttpStatus.NOT_FOUND);
         }
     }
 
