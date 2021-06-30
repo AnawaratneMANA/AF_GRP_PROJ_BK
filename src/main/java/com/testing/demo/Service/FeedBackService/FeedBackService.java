@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FeedBackService {
     Feedback createFeedback(Feedback feedback);
-    List<Events> getAllFeedbacks();
+    List<Feedback> getAllFeedbacks();
     Feedback getFeedBackById(String id);
     String deleteFeedback(String id);
     Feedback getFeedbackByName(String name);

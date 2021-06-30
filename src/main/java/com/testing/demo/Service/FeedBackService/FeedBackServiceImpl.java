@@ -37,8 +37,8 @@ public class FeedBackServiceImpl implements FeedBackService{
     }
 
     @Override
-    public List<Events> getAllFeedbacks() {
-        return null;
+    public List<Feedback> getAllFeedbacks() {
+        return mongoTemplate.findAll(Feedback.class);
     }
 
     @Override
