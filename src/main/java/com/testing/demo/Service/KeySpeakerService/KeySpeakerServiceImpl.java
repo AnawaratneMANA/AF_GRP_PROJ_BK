@@ -27,7 +27,14 @@ public class KeySpeakerServiceImpl implements KeySpeakerService{
 
     @Override
     public KeySpeakers createKeySpeaker(KeySpeakers keySpeakers) {
-        return null;
+        KeySpeakers newKeySpeaker = new KeySpeakers();
+        newKeySpeaker.setName(keySpeakers.getName());
+        newKeySpeaker.setQualifications(keySpeakers.getQualifications());
+        newKeySpeaker.setImage(keySpeakers.getImage());
+
+
+        mongoTemplate.insert(newKeySpeaker);
+        return newKeySpeaker;
     }
 
     @Override
