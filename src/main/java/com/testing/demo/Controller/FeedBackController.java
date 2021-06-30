@@ -45,17 +45,17 @@ public class FeedBackController {
     }
 
 
-//    //Get Single event
-//    @GetMapping("/getEventById/{id}")
-//    public ResponseEntity<?> getEventById(@PathVariable("id") String id){
-//        Optional<Events> eventOptional = Optional.ofNullable(eventService.getEventById(id));
-//        if(eventOptional.isPresent()){
-//            return new ResponseEntity<>(eventOptional.get(), HttpStatus.OK);
-//        }else{
-//            return new ResponseEntity<>("Event not found with id " + id , HttpStatus.NOT_FOUND);
-//        }
-//    }
-//
+    //Get Single event
+    @GetMapping("/getFeedBackById/{id}")
+    public ResponseEntity<?> getFeedBackById(@PathVariable("id") String id){
+        Optional<Feedback> feedbackOptional = Optional.ofNullable(feedBackService.getFeedBackById(id));
+        if(feedbackOptional.isPresent()){
+            return new ResponseEntity<>(feedbackOptional.get(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Feedback not found with id " + id , HttpStatus.NOT_FOUND);
+        }
+    }
+
 //    @PutMapping("/updateEvent/{id}")
 //    public ResponseEntity<?> updateEvent(@PathVariable("id") String id, @RequestBody Events events){
 //        Optional<Events> eventUpdate = Optional.ofNullable(eventService.getEventById(id));
