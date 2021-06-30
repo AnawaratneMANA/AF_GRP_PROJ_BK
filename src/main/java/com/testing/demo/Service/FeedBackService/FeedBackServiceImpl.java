@@ -53,7 +53,8 @@ public class FeedBackServiceImpl implements FeedBackService{
 
     @Override
     public String deleteFeedback(String id) {
-        return null;
+        mongoTemplate.remove(new Query(where("id").is(id)), Feedback.class);
+        return "Feedback id is " + id;
     }
 
     @Override
