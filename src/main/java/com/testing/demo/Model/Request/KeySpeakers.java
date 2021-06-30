@@ -7,15 +7,17 @@ public class KeySpeakers {
     private String id;
     private String name;
     private String image;
+    private String qualifications;
 
     public KeySpeakers (){
 
     }
 
-    public KeySpeakers(String id, String name, String image) {
+    public KeySpeakers(String id, String name, String image, String qualifications) {
         this.id = id;
         this.name = name;
         this.image = image;
+        this.qualifications = qualifications;
     }
 
     public String getId() {
@@ -40,5 +42,13 @@ public class KeySpeakers {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(String qualifications) {
+        this.qualifications = qualifications;
     }
 }
