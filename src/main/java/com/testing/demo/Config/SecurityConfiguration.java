@@ -60,6 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //Add Here Endpoints which need to be exposed to the outside.
                 .antMatchers("/api/v1/validate").permitAll()
                 .antMatchers("/api/v1/users").permitAll()
+                .antMatchers("/api/v1/user").permitAll()
                 .antMatchers("/api/v1/categories").permitAll()
                 .antMatchers("/api/v1/events").permitAll()
                 .antMatchers("/api/v1/keyspeakers").permitAll()
