@@ -30,9 +30,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    StripeService paymentsService;
-
     private AuthenticationManager authenticationManager;
 
     public UserController(AuthenticationManager authenticationManager){
@@ -116,34 +113,5 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable String id){
         String response = userService.deleteUser(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    @PostMapping("/charge")
-    public String charge(ChargeRequest chargeRequest, Model model) throws Exception {
-        chargeRequest.setDescription("Example charge");
-        chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
-        Charge charge = paymentsService.charge(chargeRequest);
-        model.addAttribute("id", ((Charge) charge).getId());
-        model.addAttribute("status", charge.getStatus());
-        model.addAttribute("chargeId", charge.getId());
-        model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        return "result";
-    }
-
-    @ExceptionHandler(StripeException.class)
-    public String handleError(Model model, StripeException ex) {
-        model.addAttribute("error", ex.getMessage());
-        return "result";
-    }
-
-    @Value("${STRIPE_PUBLIC_KEY}")
-    private String stripePublicKey;
-
-    @RequestMapping("/checkout")
-    public String checkout(Model model) {
-        model.addAttribute("amount", 50 * 100); // in cents
-        model.addAttribute("stripePublicKey", stripePublicKey);
-        model.addAttribute("currency", ChargeRequest.Currency.EUR);
-        return "checkout";
     }
 }
