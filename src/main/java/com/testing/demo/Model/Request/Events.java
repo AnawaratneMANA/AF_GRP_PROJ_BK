@@ -26,7 +26,6 @@ public class Events {
 
     //OVERLOADED
 
-
     public Events(String id, String eventName, String eventPlace, String datetime, String organizerName, String eventType, String mainSpeaker, String description, String limitOfPeople, String sponsor, String status, String image) {
         this.id = id;
         this.eventName = eventName;

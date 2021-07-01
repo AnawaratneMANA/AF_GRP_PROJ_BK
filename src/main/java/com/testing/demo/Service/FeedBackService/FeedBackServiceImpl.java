@@ -4,6 +4,7 @@ import com.testing.demo.Model.Request.Events;
 import com.testing.demo.Model.Request.Feedback;
 import com.testing.demo.Repository.BarChartMongoRepo;
 import com.testing.demo.Repository.Eventrepository;
+import com.testing.demo.Repository.FeedBackRepositary;
 import com.testing.demo.Service.EventService.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -17,7 +18,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 @Service
 public class FeedBackServiceImpl implements FeedBackService{
     @Autowired
-    Eventrepository eventrepository;
+    FeedBackRepositary feedBackRepositary;
 
     @Autowired
     EventService eventService;

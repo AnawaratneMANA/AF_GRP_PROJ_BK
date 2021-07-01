@@ -1,11 +1,16 @@
 package com.testing.demo.Controller;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
+import com.testing.demo.Model.Request.ChargeRequest;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Model.Request.ValidateUser;
 import com.testing.demo.Model.Response.jwtTockenResponse;
+import com.testing.demo.Service.StripePaymentService.StripeService;
 import com.testing.demo.Service.UserService;
 import com.testing.demo.Service.UserValidation;
 import com.testing.demo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +18,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +75,6 @@ public class UserController {
         return ResponseEntity.ok(new jwtTockenResponse(jwt));
 
     }
-
 
    //Get Single user
     @GetMapping("/getUserById/{id}")
