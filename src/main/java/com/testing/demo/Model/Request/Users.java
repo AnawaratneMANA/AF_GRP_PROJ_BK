@@ -8,6 +8,7 @@ public class Users{
     private String firstName;
     private String lastName;
     private String userName;
+    private String email;
     private String password;
     private String type;
     //Add Contact Details of the User.
@@ -17,11 +18,12 @@ public class Users{
 
     }
     //OVERLOADED
-    public Users(String id, String firstName, String lastName, String userName, String password, String type) {
+    public Users(String id, String firstName, String lastName, String userName, String password, String type, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
+        this.email = email;
         this.password = password;
         this.type = type;
     }
@@ -72,5 +74,13 @@ public class Users{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

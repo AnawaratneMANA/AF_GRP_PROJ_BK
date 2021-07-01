@@ -36,7 +36,7 @@ public class AdminController {
             for (DownloadItem i : downloadItems){
                 if (i.getApprovalStatus().contentEquals("approve")){
                     count1++;
-                }else if (i.getApprovalStatus().contentEquals("reject")){
+                } else if (i.getApprovalStatus().contentEquals("reject")){
                     count2++;
                 }
             }
