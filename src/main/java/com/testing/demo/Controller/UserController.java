@@ -1,11 +1,16 @@
 package com.testing.demo.Controller;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
+import com.testing.demo.Model.Request.ChargeRequest;
 import com.testing.demo.Model.Request.Users;
 import com.testing.demo.Model.Request.ValidateUser;
 import com.testing.demo.Model.Response.jwtTockenResponse;
+import com.testing.demo.Service.StripePaymentService.StripeService;
 import com.testing.demo.Service.UserService;
 import com.testing.demo.Service.UserValidation;
 import com.testing.demo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +18,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,9 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    StripeService paymentsService;
 
     private AuthenticationManager authenticationManager;
 
@@ -70,7 +79,6 @@ public class UserController {
 
     }
 
-
    //Get Single user
     @GetMapping("/getUserById/{id}")
     public ResponseEntity<?> getUserById(@PathVariable("id") String id){
@@ -108,5 +116,34 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable String id){
         String response = userService.deleteUser(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/charge")
+    public String charge(ChargeRequest chargeRequest, Model model) throws Exception {
+        chargeRequest.setDescription("Example charge");
+        chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
+        Charge charge = paymentsService.charge(chargeRequest);
+        model.addAttribute("id", ((Charge) charge).getId());
+        model.addAttribute("status", charge.getStatus());
+        model.addAttribute("chargeId", charge.getId());
+        model.addAttribute("balance_transaction", charge.getBalanceTransaction());
+        return "result";
+    }
+
+    @ExceptionHandler(StripeException.class)
+    public String handleError(Model model, StripeException ex) {
+        model.addAttribute("error", ex.getMessage());
+        return "result";
+    }
+
+    @Value("${STRIPE_PUBLIC_KEY}")
+    private String stripePublicKey;
+
+    @RequestMapping("/checkout")
+    public String checkout(Model model) {
+        model.addAttribute("amount", 50 * 100); // in cents
+        model.addAttribute("stripePublicKey", stripePublicKey);
+        model.addAttribute("currency", ChargeRequest.Currency.EUR);
+        return "checkout";
     }
 }
