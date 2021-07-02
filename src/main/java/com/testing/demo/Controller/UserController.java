@@ -90,6 +90,7 @@ public class UserController {
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody Users user){
         Optional<Users> userUpdate = Optional.ofNullable(userService.getUserById(id));
+        System.out.println("user updated " + userUpdate.isPresent());
         if(userUpdate.isPresent()){
             Users updateUser = userUpdate.get();
             updateUser.setId(user.getId()  != null ? user.getId() : updateUser.getId());
@@ -98,7 +99,7 @@ public class UserController {
             updateUser.setUserName(user.getUserName() != null ? user.getUserName() : updateUser.getUserName());
             updateUser.setPassword(user.getPassword() != null ? user.getPassword() : updateUser.getPassword());
             updateUser.setType(user.getType() != null ? user.getType() : updateUser.getType());
-            userService.createUser(updateUser);
+            ;
             return new ResponseEntity<>("Update Successful", HttpStatus.OK);
         }
         return new ResponseEntity<>("Update Unsuccessful", HttpStatus.NOT_FOUND);

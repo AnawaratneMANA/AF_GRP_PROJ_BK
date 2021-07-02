@@ -35,22 +35,38 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public Events createEvent(Events events) {
-        //CREATE USER
         Events newEvent = new Events();
-        newEvent.setEventName(events.getEventName());
-        newEvent.setEventType(events.getEventType());
-        newEvent.setDescription(events.getDescription());
-        newEvent.setEventPlace(events.getEventPlace());
-        newEvent.setSponsor(events.getSponsor());
-        newEvent.setOrganizerName(events.getOrganizerName());
-        newEvent.setStatus(events.getStatus());
-        newEvent.setLimitOfPeople(events.getLimitOfPeople());
-        newEvent.setMainSpeaker(events.getMainSpeaker());
-        newEvent.setDatetime(events.getDatetime());
-        newEvent.setImage(events.getImage());
-        mongoTemplate.insert(newEvent);
-        //mongoTemplate
-        return newEvent;
+        if (events.getId() == null) {
+            newEvent.setEventName(events.getEventName());
+            newEvent.setEventType(events.getEventType());
+            newEvent.setDescription(events.getDescription());
+            newEvent.setEventPlace(events.getEventPlace());
+            newEvent.setSponsor(events.getSponsor());
+            newEvent.setOrganizerName(events.getOrganizerName());
+            newEvent.setStatus(events.getStatus());
+            newEvent.setLimitOfPeople(events.getLimitOfPeople());
+            newEvent.setMainSpeaker(events.getMainSpeaker());
+            newEvent.setDatetime(events.getDatetime());
+            newEvent.setImage(events.getImage());
+            mongoTemplate.insert(newEvent);
+            return newEvent;
+        } else {
+            System.out.println("this is update");
+            newEvent = mongoTemplate.findOne(new Query(where("id").is(events.getId())), Events.class);
+            newEvent.setEventName(events.getEventName());
+            newEvent.setEventType(events.getEventType());
+            newEvent.setDescription(events.getDescription());
+            newEvent.setEventPlace(events.getEventPlace());
+            newEvent.setSponsor(events.getSponsor());
+            newEvent.setOrganizerName(events.getOrganizerName());
+            newEvent.setStatus(events.getStatus());
+            newEvent.setLimitOfPeople(events.getLimitOfPeople());
+            newEvent.setMainSpeaker(events.getMainSpeaker());
+            newEvent.setDatetime(events.getDatetime());
+            newEvent.setImage(events.getImage());
+            eventrepository.save(newEvent);
+            return newEvent;
+        }
 
     }
 
