@@ -17,7 +17,7 @@ public class DownloadServiceImpl implements DownloadService {
         //CREATE NEW CATEGORY.
         DownloadCategory category = new DownloadCategory();
         category.setDownloadHeader(downloadCategory.getDownloadHeader());
-        category.setDownloadDescription(downloadCategory.getDownloadHeader());
+        category.setDownloadDescription(downloadCategory.getDownloadDescription());
         category.setType(downloadCategory.getType());
         category.setLink(downloadCategory.getLink());
         mongoTemplate.insert(category);
