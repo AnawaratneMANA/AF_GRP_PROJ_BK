@@ -99,7 +99,7 @@ public class UserController {
             updateUser.setUserName(user.getUserName() != null ? user.getUserName() : updateUser.getUserName());
             updateUser.setPassword(user.getPassword() != null ? user.getPassword() : updateUser.getPassword());
             updateUser.setType(user.getType() != null ? user.getType() : updateUser.getType());
-            ;
+            userService.createUser(updateUser);
             return new ResponseEntity<>("Update Successful", HttpStatus.OK);
         }
         return new ResponseEntity<>("Update Unsuccessful", HttpStatus.NOT_FOUND);
