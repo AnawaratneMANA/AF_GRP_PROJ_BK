@@ -104,6 +104,7 @@ public class EventController {
     @PutMapping("/updateEvent/{id}")
     public ResponseEntity<?> updateEvent(@PathVariable("id") String id, @RequestBody Events events){
         Optional<Events> eventUpdate = Optional.ofNullable(eventService.getEventById(id));
+        System.out.println(eventUpdate.isPresent());
         if(eventUpdate.isPresent()){
             Events updateEvent = eventUpdate.get();
             updateEvent.setId(events.getId() != null ? events.getId() : updateEvent.getId());
@@ -116,7 +117,6 @@ public class EventController {
             updateEvent.setMainSpeaker(events.getMainSpeaker() != null ? events.getMainSpeaker() : updateEvent.getMainSpeaker());
             updateEvent.setLimitOfPeople(events.getLimitOfPeople() != null ? events.getLimitOfPeople() : updateEvent.getLimitOfPeople());
             updateEvent.setOrganizerName(events.getOrganizerName() != null ? events.getOrganizerName() : updateEvent.getOrganizerName());
-
             eventService.createEvent(updateEvent);
             return new ResponseEntity<>("Update Successful", HttpStatus.OK);
         }

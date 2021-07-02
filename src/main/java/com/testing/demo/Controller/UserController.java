@@ -90,6 +90,7 @@ public class UserController {
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody Users user){
         Optional<Users> userUpdate = Optional.ofNullable(userService.getUserById(id));
+        System.out.println("user updated " + userUpdate.isPresent());
         if(userUpdate.isPresent()){
             Users updateUser = userUpdate.get();
             updateUser.setId(user.getId()  != null ? user.getId() : updateUser.getId());
