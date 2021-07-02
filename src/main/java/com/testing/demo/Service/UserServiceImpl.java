@@ -27,15 +27,32 @@ public class UserServiceImpl implements UserService{
     public Users createUser(Users user) {
         //CREATE USER
         Users newUser = new Users();
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setUserName(user.getUserName());
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(user.getPassword());
-        newUser.setType(user.getType());
-        mongoTemplate.insert(newUser);
-        //mongoTemplate
-        return newUser;
+        if (user.getId() == null) {
+            System.out.println("this is insert");
+            newUser.setFirstName(user.getFirstName());
+            newUser.setLastName(user.getLastName());
+            newUser.setUserName(user.getUserName());
+            newUser.setEmail(user.getEmail());
+            newUser.setPassword(user.getPassword());
+            newUser.setType(user.getType());
+            mongoTemplate.insert(newUser);
+            //mongoTemplate
+            return newUser;
+        } else {
+            System.out.println("this is update");
+            newUser = mongoTemplate.findOne(new Query(where("id").is(user.getId())), Users.class);
+            System.out.println("new user " + newUser);
+            newUser.setFirstName(user.getFirstName());
+            newUser.setLastName(user.getLastName());
+            newUser.setUserName(user.getUserName());
+            newUser.setEmail(user.getEmail());
+            newUser.setPassword(user.getPassword());
+            newUser.setType(user.getType());
+            userrepository.save(newUser);
+            //mongoTemplate
+            return newUser;
+        }
+
     }
 
     @Override
