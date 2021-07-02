@@ -7,16 +7,17 @@ import com.testing.demo.Service.StripePaymentService.StripeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-public class ChargeAndCheckOutController {
+@CrossOrigin("*")
+@RestController
+@RequestMapping("api/v1")
+public class ChargeController {
 
     @Autowired
     StripeService paymentsService;
 
-    @PostMapping("/charge")
+    @PostMapping("/charge1")
     public String charge(ChargeRequest chargeRequest, Model model) throws Exception {
         chargeRequest.setDescription("Example charge");
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
@@ -28,20 +29,18 @@ public class ChargeAndCheckOutController {
         return "result";
     }
 
+    @PostMapping("/charge")
+    public String chargeCard(@RequestHeader(value="token") String token, @RequestHeader(value="amount") Double amount) throws Exception {
+        System.out.println(token);
+        System.out.println(amount);
+        Charge charge = paymentsService.chargeNewCard(token, amount);
+        return "charge";
+    }
+
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
         return "result";
     }
 
-    @Value("pk_test_51J8R13E0pZfHtqeOwbTMbjIavkjjILqevpElHxiuWopUuznA7SzlW2kjYV1z5PeFN6X3CZxX1OMrgTmiS4Eu0AgQ00XitZCzFs")
-    private String stripePublicKey;
-
-    @RequestMapping("/checkout")
-    public String checkout(Model model) {
-        model.addAttribute("amount", 50 * 100); // in cents
-        model.addAttribute("stripePublicKey", stripePublicKey);
-        model.addAttribute("currency", ChargeRequest.Currency.EUR);
-        return "checkout";
-    }
 }
