@@ -33,4 +33,15 @@ public class StripeService {
         chargeParams.put("source", chargeRequest.getStripeToken());
         return Charge.create(chargeParams);
     }
+
+    //User Upfront Payment During, Registering to the Dashboard.
+    public Charge chargeNewCard(String token, double amount) throws Exception {
+        Map<String, Object> chargeParams = new HashMap<String, Object>();
+        chargeParams.put("amount", (int)(amount * 100));
+        chargeParams.put("currency", "USD");
+        chargeParams.put("source", token);
+        Charge charge = Charge.create(chargeParams);
+
+        return charge;
+    }
 }
